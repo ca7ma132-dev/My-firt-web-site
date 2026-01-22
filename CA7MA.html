@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA7MA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg1:#05050a;
+  --bg2:#0f0f1c;
+  --card:rgba(20,20,35,.78);
+  --border:rgba(120,120,255,.18);
+  --text:#ececff;
+  --muted:#9b9bb5;
+  --accent:#7a6cff;
+  --glow:rgba(122,108,255,.35);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top,var(--bg2),var(--bg1));
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ===== Entry animations ===== */
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-35px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes glowPulse{
+  from{text-shadow:0 0 18px var(--glow)}
+  to{text-shadow:0 0 38px var(--glow)}
+}
+
+/* Header */
+header{
+  padding:80px 0 50px;
+  text-align:center;
+  animation:fadeDown 1.2s ease forwards;
+}
+
+h1{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  font-size:60px;
+  letter-spacing:6px;
+  text-shadow:0 0 30px var(--glow);
+  animation:glowPulse 4s infinite alternate;
+}
+
+/* Sections */
+section{
+  padding:60px 0;
+  opacity:0;
+  transform:translateY(40px);
+  animation:fadeUp 1.1s ease forwards;
+}
+
+section:nth-of-type(2){animation-delay:.15s}
+section:nth-of-type(3){animation-delay:.3s}
+
+/* Layout */
+.container{
+  width:90%;
+  max-width:1000px;
+  margin:auto;
+}
+
+.card{
+  background:var(--card);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  box-shadow:0 20px 45px rgba(0,0,0,.65);
+  transition:.4s ease;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 70px rgba(0,0,0,.85);
+}
+
+h2{
+  font-family:'Orbitron',sans-serif;
+  margin-top:0;
+  font-size:32px;
+  letter-spacing:2px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:14px;
+}
+
+/* Songs */
+ul{
+  list-style:none;
+  padding:0;
+  margin:24px 0 0;
+}
+
+li{
+  padding:16px 22px;
+  margin-bottom:14px;
+  border-radius:14px;
+  transition:.35s ease;
+}
+
+li:hover{
+  background:rgba(122,108,255,.1);
+  box-shadow:0 0 20px var(--glow);
+  transform:translateX(6px);
+}
+
+a.song{
+  color:var(--text);
+  text-decoration:none;
+  font-size:17px;
+}
+
+a.song:hover{
+  color:var(--accent);
+}
+
+/* Contact */
+.contact-box{text-align:center}
+
+.contact-link{
+  display:inline-block;
+  margin-top:26px;
+  padding:14px 36px;
+  font-family:'Orbitron',sans-serif;
+  font-size:18px;
+  letter-spacing:2px;
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--border);
+  border-radius:30px;
+  transition:.35s ease;
+}
+
+.contact-link:hover{
+  color:var(--accent);
+  box-shadow:0 0 28px var(--glow);
+  transform:scale(1.08);
+}
+
+/* Footer */
+footer{
+  padding:35px 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>CA7MA</h1>
+</header>
+
+<section>
+  <div class="container">
+    <div class="card">
+      <h2>Songs</h2>
+      <ul>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-line-tab-s3416419" target="_blank">Line</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-sacrifice-tab-s2797192" target="_blank">Sacrifice</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-404-tab-s3470724" target="_blank">404</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-shepards-claws-tab-s2849631" target="_blank">Shepard’s Claws</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-the-dark-howl-of-a-kikimora-in-the-distance-of-the-swamp-tab-s2904706" target="_blank">
+          The Dark Howl of a Kikimora in the Distance of the Swamp
+        </a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-fontadion-of-power-tab-s3194165" target="_blank">Fontadion of Power</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-hzzz-tab-s3125179" target="_blank">HZZZ</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-something-tab-s3341102" target="_blank">Something</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-defusion-tab-s3473180" target="_blank">Defusion</a></li>
+        <li><a class="song" href="https://www.songsterr.com/a/wsa/carma-sevem-tab-s3336433" target="_blank">Sevem</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card contact-box">
+      <h2>Contact us</h2>
+      <a class="contact-link" href="https://t.me/CA7MAA" target="_blank">Сlick</a>
+    </div>
+  </div>
+</section>
+
+<footer>© CA7MA</footer>
+
+</body>
+</html>
