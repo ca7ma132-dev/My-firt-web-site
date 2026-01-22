@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Відкриті реєстри України</title>
+<style>
+  :root{
+    --bg:#070A13;
+    --card:#0B1220;
+    --text:#E5E7EB;
+    --accent:#38BDF8;
+    --accent2:#22C55E;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background: radial-gradient(circle at top, #0b1220, #070a13);
+    color:var(--text);
+  }
+
+  header{
+    padding:40px 20px;
+    text-align:center;
+  }
+  header h1{
+    margin:0;
+    font-size:40px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    color:transparent;
+  }
+  header p{opacity:.7}
+
+  main{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+  }
+
+  .search{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .search input{
+    flex:1;
+    padding:14px;
+    border-radius:12px;
+    border:none;
+    background:#0b1220;
+    color:white;
+    box-shadow:0 0 0 1px #1f2a44;
+    font-size:16px;
+  }
+  .search button{
+    padding:14px 20px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    font-weight:800;
+    cursor:pointer;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+  }
+
+  .card{
+    background:linear-gradient(180deg,#0b1220,#070a13);
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+    border:1px solid #0b1220;
+    transition:.3s;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    border-color:var(--accent);
+  }
+  .card h3{margin:0 0 10px 0}
+  .card small{opacity:.6}
+  .card p{opacity:.8;font-size:14px}
+
+  .pagination{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+  }
+  .pagination button{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    background:#0b1220;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 0 1px #1f2a44;
+  }
+  .pagination button.active{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+  }
+
+  footer{
+    text-align:center;
+    padding:20px;
+    opacity:.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Відкриті реєстри України</h1>
+  <p>Пошук по державних даних (data.gov.ua)</p>
+</header>
+
+<main>
+  <div class="search">
+    <input id="q" placeholder="ТОВ, ФОП, реєстр, ліцензія...">
+    <button onclick="search(1)">Пошук</button>
+  </div>
+
+  <div id="results" class="grid"></div>
+
+  <div class="pagination" id="pages"></div>
+</main>
+
+<footer>
+  Дані з data.gov.ua • Через CORS-проксі • Без зберігання
+</footer>
+
+<script>
+let currentPage = 1;
+let totalPages = 0;
+let currentQuery = "";
+
+async function search(page=1){
+  currentPage = page;
+  currentQuery = document.getElementById("q").value;
+  const resultsDiv = document.getElementById("results");
+  const pagesDiv = document.getElementById("pages");
+
+  resultsDiv.innerHTML = "Завантаження...";
+  pagesDiv.innerHTML = "";
+
+  const rows = 12;
+  const api = `https://data.gov.ua/api/3/action/package_search?q=${encodeURIComponent(currentQuery)}&rows=${rows}&start=${(page-1)*rows}`;
+  const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(api)}`;
+
+  try{
+    const r = await fetch(url);
+    const d = await r.json();
+
+    resultsDiv.innerHTML = "";
+    d.result.results.forEach(x => {
+      resultsDiv.innerHTML += `
+        <div class="card">
+          <h3>${x.title}</h3>
+          <small>${x.organization?.title || "Державний реєстр"}</small>
+          <p>${(x.notes||"Опис відсутній").slice(0,180)}...</p>
+        </div>`;
+    });
+
+    totalPages = Math.ceil(d.result.count / rows);
+    for(let i=1;i<=Math.min(totalPages, 10); i++){
+      pagesDiv.innerHTML += `<button class="${i===currentPage ? 'active':''}" onclick="search(${i})">${i}</button>`;
+    }
+
+  }catch{
+    resultsDiv.innerHTML = "Помилка зʼєднання";
+  }
+}
+</script>
+
+</body>
+</html>
